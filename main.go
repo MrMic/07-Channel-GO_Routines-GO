@@ -23,8 +23,10 @@ func main() {
 
 	// for i := 0; i < len(links); i++ {
 	for l := range c {
-		time.Sleep(time.Second * 1)
-		go checkLink(l, c)
+		go func() {
+			time.Sleep(2 * time.Second)
+			checkLink(l, c)
+		}()
 	}
 }
 
