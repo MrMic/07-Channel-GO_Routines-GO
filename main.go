@@ -21,8 +21,8 @@ func main() {
 	}
 
 	// for i := 0; i < len(links); i++ {
-	for range links {
-		fmt.Println(<-c)
+	for {
+		go checkLink(<-c, c)
 	}
 }
 
@@ -31,10 +31,10 @@ func checkLink(link string, c chan string) {
 	_, err := http.Get(link)
 	if err != nil {
 		fmt.Println(link, "might be down")
-		c <- "Might be DOWN I think"
+		c <- link
 		return
 	}
 
 	fmt.Println(link, "is up!")
-	c <- "Yep, it's UP!"
+	c <- link
 }
